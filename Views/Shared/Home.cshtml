@@ -1,0 +1,41 @@
+<a href="/logout">Logout</a>
+
+@if(ViewBag.CurrentUser != null)
+{
+<h3>Hi @ViewBag.CurrentUser.Alias!</h3>
+
+    @if (ViewBag.NewIdeaError != null)
+    {
+        <p>@ViewBag.NewIdeaError[0]</p>
+    }
+
+    <form action="/createidea" method="post">
+        <textarea cols="60" rows="4" name="newidea" placeholder="Post something witty here...."></textarea>
+        <input type="hidden" name="userId" value="@ViewBag.CurrentUser.UserId">
+        <input type="submit" value="Add Idea!">
+    </form>
+}
+
+@if(ViewBag.AllQuery != null)
+{
+    @foreach( var idea in ViewBag.AllQuery)
+    {
+        <a href="/user/@idea.User.UserId">@idea.User.Name</a>
+        <span id="idea"> says: @idea.Content</span>
+        <span> @if(@idea.User.UserId == @ViewBag.CurrentUserId)
+                {
+                    <a href="/idea/delete/@idea.IdeaId">Delete</a>
+                }
+        </span>
+             
+            <form action="likeidea" method="post">
+                <input type="hidden" name="ideaId" value="@idea.IdeaId">
+                <input type="hidden" name="loggedInUserId" value="@ViewBag.CurrentUser.UserId">
+                <input type="submit" value="Like" id="likes"><span>@if(@idea.Likes.Count > 0)
+            {
+                <a href="/ideas/@idea.IdeaId">@idea.Likes.Count people</a> <span> like this!</span>
+            }</span>
+            </form><hr>
+       
+    }
+}

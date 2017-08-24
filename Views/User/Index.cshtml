@@ -1,0 +1,63 @@
+@model beltretake.Models.RegisterUser
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<h1>Welcome to Bright Ideas!</h1>
+
+
+<h3>Login</h3>
+<div>
+
+    @if(ViewBag.LoginErrors != null)
+    {
+        foreach(var error in ViewBag.LoginErrors)
+            {
+                    <p>@error</p>
+            }
+    }
+    
+</div>
+
+<form action="/login" method="post">
+    <label for="email">Email</label>
+    <input type="text" name='email' value="">
+    <label for="password">Password</label>
+    <input type="password" name='password' value="">
+    <input type="submit" value="Login">
+</form><br>
+
+<h3> Register </h3>
+
+@{
+        foreach(var error in ViewBag.Errors)
+            {
+                if(@error.Errors.Count > 0)
+                {
+                    <p>@error.Errors[0].ErrorMessage</p>
+                }
+            }
+}
+
+
+<form asp.controller="User" asp-action="Register" method="post">
+    
+    
+    <span asp-validation for="Name"></span>
+    <label asp-for="Name"></label>
+    <input asp-for="Name">
+    <span asp-validation for="Alias"></span>
+    <label asp-for="Alias"></label>
+    <input asp-for="Alias">
+    <span asp-validation for="Email"></span>
+    <label asp-for="Email"></label>
+    <input asp-for="Email">
+    <label asp-for="Password"></label>
+    <input asp-for="Password">
+     <span asp-validation for="PasswordConfirmation"></span>
+    <label asp-for="PasswordConfirmation"></label>
+   
+    <input asp-for="PasswordConfirmation">
+    <input type="submit" value="Submit">
+
+</form>

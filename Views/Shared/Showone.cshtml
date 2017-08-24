@@ -1,0 +1,41 @@
+<a href="/logout">Logout</a>
+<a href="/home">Bright Ideas</a>
+
+<div>
+   <p><a href="/user/@ViewBag.ThisIdea.User.UserId"> @ViewBag.ThisIdea.User.Name </a> says: @ViewBag.ThisIdea.Content</p>
+  
+</div>
+
+<h3> People who liked this post!</h3>
+
+<table>
+   
+      
+    <tr>
+        <th>Alias</th>
+        <th>Name</th>
+    </tr>
+    @foreach(var like in ViewBag.OneIdea)
+    {
+    <tr>
+    
+        <td><a href="/user/@like.User.UserId">@like.User.Alias</a></td>
+        <td>@like.User.Name</td>
+    
+    </tr>
+    }
+    
+    
+        
+</table>
+
+
+    
+
+
+
+        
+
+
+
+ 
